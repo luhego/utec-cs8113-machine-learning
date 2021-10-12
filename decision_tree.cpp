@@ -227,6 +227,12 @@ private:
         return make_pair(bestFeatureIndex, bestFeatureThreshold);
     }
 
+
+    /**
+     * Build the decision tree recursively. First, we compute the best split which is composed of
+     * the featureIndex and the featureThreshold. Then, we divide the dataset into two according to
+     * the split. Then, we build the decision tree for the left subtree and the right subtree.
+    */
     Node *buildTree(const vector<vector<double>> &X, const vector<int> &y, int depth = 0) {
         vector<int> numSamplesPerClass = buildNumSamplesPerClass(y);
         int predictedClass =
@@ -272,6 +278,9 @@ private:
         return node;
     }
 
+    /**
+     * Navigate the decision tree and get the prediction for the given row.
+    */
     int predictRow(vector<double> x) {
         Node *node = this->root;
         while (node->getLeftNode()) {
